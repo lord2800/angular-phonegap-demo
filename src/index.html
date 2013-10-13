@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Angular Phonegap Demo</title>
+	<style>
+		body { font-size: 24pt; }
+	</style>
+</head>
+<body>
+	<main ng-controller="MainController">
+		<h1>Angular Phonegap Demo</h1>
+		<div class="ng-cloak">Angular ready and loaded!</div>
+
+		<div ng-if="position == null">Getting my current location...</div>
+		<div ng-if="position != null">
+			I am currently at lat {{position.coords.latitude | number}}, long {{position.coords.longitude | number}} ({{position.coords.accuracy}} meters of accuracy)
+		</div>
+
+		<div ng-if="errors.length > 0">
+			Oops! Bad things happened:
+			<div ng-repeat="error in errors">
+				{{error.code}}: {{error.message}}
+			</div>
+		</div>
+	</main>
+
+	<script src="cordova.js"></script>
+	<script src="angular.js"></script>
+	<script src="js/main.js"></script>
+
+	<script>
+		document.addEventListener("deviceready", function () {
+			console.log('Device is ready');
+			angular.element(document).ready(function () {
+				console.log('Document is ready, bootstrapping Angular');
+				angular.bootstrap(document, ['AngularPhonegapDemo']);
+			});
+		});
+	</script>
+</body>
+</html>
